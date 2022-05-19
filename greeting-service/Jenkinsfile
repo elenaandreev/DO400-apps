@@ -1,3 +1,4 @@
+
 pipeline{
     agent{
         label "nodejs"
@@ -22,5 +23,13 @@ pipeline{
         }
 
         // Add the "Deploy" stage here
+        stage('Deploy') {
+          steps {
+            sh '''
+              oc project gqutiw-deploy-strategies
+              oc start-build greeting-service --follow --wait
+            '''
+          }
+       }
     }
 }
